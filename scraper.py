@@ -1,14 +1,39 @@
 import os
+from datetime import datetime
+
 from bs4 import BeautifulSoup
 
 import requests
 
+import main
+
 DIR = 'cache/'
 
 
-def scrape_words(url):
+def scrape_puzzle(url):
     soup = get_soup(url)
-    return [word_elem.get_text() for word_elem in soup.select('.bee-set td.bee-hover')]
+    words = [word_elem.get_text() for word_elem in soup.select('tr:not(.bee-disallowed) td.bee-hover')]
+    center = soup.select_one('td span.bee-center').get_text()
+    if not (words and center):
+        raise Exception("Error in processing this puzzle")
+    all_letters = set()
+    for w in words:
+        all_letters = all_letters.union(w)
+        if len(all_letters) == 7:
+            break
+    date_str = soup.select_one('.crumb').get_text().split(' | ')[0]
+    parsed_date = datetime.strptime(date_str, "%B %d, %Y")
+
+    puzzle = main.Puzzle.of(center, all_letters)
+    puzzle.all_words = words
+    puzzle.date = parsed_date
+    return puzzle
+
+
+def scrape_retconned_words(url):
+    soup = get_soup(url)
+    words = [word_elem.get_text() for word_elem in soup.select('tr.bee-disallowed td.bee-hover')]
+    return words
 
 
 def get_soup(url):
