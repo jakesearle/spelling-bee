@@ -36,6 +36,19 @@ January 22, 2021, February 17, 2020, April 06, 2019, and September 27, 2018
   - Do not contain an "E" and "R"
   - Do not contain 8 or more unique letters
 
+
+## Pokédex Clarification
+I've scraped the list of Pokémon names from [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_National_Pok%C3%A9dex_number).
+* 'MUK' and 'MEW' (the only Pokémon names of length <4) are valid because why not
+* "NIDORAN" without '♀' or '♂' *is* valid
+* The following Pokémon were excluded:
+  * Pokémon with punctuation: "FARFETCH'D", "HO-OH", etc.
+  * Pokémon with numbers: "PORYGON2"
+  * Pokémon with diacritics : "FLABÉBÉ"
+  * Pokémon with spaces: "MR. MIME", "TAPU KOKO", "ROARING MOON", etc.
+
 ## Todo:
 - Improve iteration over puzzles
 - Pokedex words
+
+>!Column L | Column C | Column R!<

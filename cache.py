@@ -29,7 +29,7 @@ def load_all_puzzles():
     filepath = DIR + 'old-puzzles.ndjson'
     if not os.path.exists(filepath):
         save_all_puzzles(filepath)
-    return load_puzzle_ndjson(filepath)
+    return load_pickle_ndjson(filepath)
 
 
 def save_all_puzzles(filepath):
@@ -53,7 +53,7 @@ def save_ndjson(list_of_puzzles, filepath):
         outfile.write(out_str)
 
 
-def load_puzzle_ndjson(filepath):
+def load_pickle_ndjson(filepath):
     with open(filepath, 'r') as infile:
         return [jsonpickle.decode(line) for line in infile.readlines()]
 
@@ -120,3 +120,15 @@ def save_likely_words(filename):
     # Other
     likely_words = unverified - set(have_s) - set(have_er) - set(have_plus7_letters)
     save_dictionary(likely_words, filename)
+
+
+def load_pokedex():
+    filepath = DIR + 'pokedex.ndjson'
+    if not os.path.exists(filepath):
+        save_pokedex(filepath)
+    return load_pickle_ndjson(filepath)
+
+
+def save_pokedex(filepath):
+    pokedex = scraper.scrape_pokedex()
+    save_ndjson(pokedex, filepath)
