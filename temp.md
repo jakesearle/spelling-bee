@@ -1,33 +1,27 @@
-This puzzle has 3 Pokémon, with no Pokégrams
+This puzzle has 1 Pokémon, with no Pokégrams
 
-|  | 4 | 5 | 6 | Σ |
-| --- | --- | --- | --- | --- |
-| L |  |  | 1 | 1 |
-| M |  | 1 |  | 1 |
-| N | 1 |  |  | 1 |
-| Σ | 1 | 1 | 1 | 3 |
+|  | 5 | Σ |
+| :-: | :-: | :-: |
+| H | 1 | 1 |
+| Σ | 1 | 1 |
 
 **Type Grid**
 
-| ↓Secondary/Primary→ | NONE | FLYING | GHOST | Σ |
-| ------------------- | ---- | ------ | ----- | --- |
-| PSYCHIC | 1 | 1 | 1 | 3 |
-| Σ | 1 | 1 | 1 | 3 |
+| ↓Primary/Secondary→ | GHOST | Σ |
+| :-: | :-: | :-: |
+| PSYCHIC | 1 | 1 |
+| Σ | 1 | 1 |
 
 **Generation List**
 
-| Gen. 2 | 1 |
-| ------ | --- |
-| Gen. 5 | 1 |
-| Gen. 7 | 1 |
+| Gen. 6 | 1 |
+| :-: | :-: |
 
 **Solution**
 
-April 23, 2024 | (U) A B L M N T
+April 29, 2024 | (A) D E H O P T
 
-|  | 4 | 5 | 6 | Σ |
-| --- | --- | --- | --- | --- |
-| L |  |  | >!LUNALA!< | 1 |
-| M |  | >!MUNNA!< |  | 1 |
-| N | >!NATU!< |  |  | 1 |
-| Σ | 1 | 1 | 1 | 3 |
+|  | 5 | Σ |
+| :-: | :-: | :-: |
+| H | >!HOOPA!< | 1 |
+| Σ | 1 | 1 |

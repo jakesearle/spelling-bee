@@ -47,8 +47,11 @@ I've scraped the list of Pokémon names from [Bulbapedia](https://bulbapedia.bul
   * Pokémon with diacritics : "FLABÉBÉ"
   * Pokémon with spaces: "MR. MIME", "TAPU KOKO", "ROARING MOON", etc.
 
+### Pokémon Q&A
+
+* Q: Has a Pokémon ever been a pangram to an offical puzzle?
+  * A: Yeah, multiple times. Look at the `pokegrams/` folder for every time that happened. (DRAPION seems to be the most common one)
+
 ## Todo:
 - Improve iteration over puzzles
 - Pokedex words
-
->!Column L | Column C | Column R!<

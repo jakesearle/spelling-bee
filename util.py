@@ -53,7 +53,7 @@ def grid_str(values):
 
 
 def markdown_table(matrix):
-    header_line = ['-'*max(3, len(str(cell))) for cell in matrix[0]]
+    header_line = [':-:' for _ in matrix[0]]
     matrix.insert(1, header_line)
     cells = '\n'.join(['| ' + ' | '.join([str(cell) for cell in row]) + ' |' for row in matrix])
     return cells

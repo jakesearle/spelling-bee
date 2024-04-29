@@ -120,17 +120,19 @@ class Puzzle:
         return f'{title}\n{grid_string}'
 
     def solution_grid_markdown(self):
+        assert self.all_words is not None and self.all_pangrams is not None
         all_firsts = sorted(list(set([w[0] for w in self.all_words])))
         all_lengths = sorted(list(set([len(w) for w in self.all_words])))
         first_sums = [sum([1 for w in self.all_words if w[0] == f]) for f in all_firsts]
         length_sums = [sum([1 for w in self.all_words if len(w) == l]) for l in all_lengths]
         grouped_words = {}
         for w in sorted(self.all_words):
+            # if w in all_
             if (w[0], len(w)) in grouped_words:
                 grouped_words[(w[0], len(w))].append(w)
             else:
                 grouped_words[(w[0], len(w))] = [w]
-        word_grid = [['<br>'.join(grouped_words.get((f, l), '')) for l in all_lengths] for f in all_firsts]
+        word_grid = [[', '.join(grouped_words.get((f, l), '')) for l in all_lengths] for f in all_firsts]
         # Add spoilertext
         word_grid = [[f'>!{cell}!<' if cell else cell for cell in row] for row in word_grid]
         header = ['', *all_lengths, 'Σ']
@@ -166,7 +168,10 @@ class Puzzle:
 
     def pokedex_markdown(self, pokedex):
         valid = [p for p in pokedex if self.contains_word(p.name)]
-        self.all_words = [p.name for p in valid]
+        if not valid:
+            return 'No Pokemon today!'
+        self.all_words = list(set([p.name for p in valid]))
+        self.all_pangrams = [w for w in self.all_words if self.is_pangram(w)]
         return (f'{self.pokedex_normal_hint_grid(valid)}\n\n'
                 f'**Type Grid**\n\n'
                 f'{self.pokedex_type_grid(valid)}\n\n'
@@ -215,7 +220,7 @@ class Puzzle:
         grid = [[sum([1 for p in poke_answers if p.type1 == t1 and p.type2 == t2]) for t2 in all_secondary_types] for t1
                 in all_primary_types]
 
-        header = ['↓Secondary/Primary→', *all_secondary_types, 'Σ']
+        header = ['↓Primary/Secondary→', *all_secondary_types, 'Σ']
         footer = ['Σ', *secondary_sums, sum(primary_sums)]
         return util.markdown_table([header] + surround(all_primary_types, grid, primary_sums) + [footer])
 
@@ -225,6 +230,9 @@ class Puzzle:
         gen_sums = [sum([1 for p in poke_answers if p.gen == g]) for g in gens]
         grid = [[label, total] for label, total in zip(gen_strs, gen_sums)]
         return util.markdown_table(grid)
+
+    def markdown_filename(self):
+        return self.key_letter + ''.join(self.other_letters) + '.md'
 
 
 def is_blankspace(string):
@@ -335,8 +343,20 @@ def solve_with_pokedex(key, other_letters):
         outfile.write(puzz.pokedex_markdown(pokedex))
 
 
+def find_pokegrams():
+    pokedex = cache.load_pokedex()
+    pokenames = [p.name for p in pokedex]
+    puzzles = cache.load_all_puzzles()
+    for puzzle in tqdm(puzzles):
+        puzzle.solve(pokenames)
+        if puzzle.all_pangrams:
+            print(puzzle)
+            with open(puzzle.markdown_filename(), 'w') as output:
+                output.write(puzzle.pokedex_markdown(pokedex))
+
+
 def main():
-    solve_with_pokedex("U", "NLMBTA")
+    solve_with_pokedex("A", "DEHOPT")
 
 
 if __name__ == '__main__':
